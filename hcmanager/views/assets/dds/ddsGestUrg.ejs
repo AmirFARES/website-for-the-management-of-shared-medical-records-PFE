@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/logo/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/logo/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/logo/favicon-16x16.png">
+        <link rel="manifest" href="/images/logo/site.webmanifest">
+    <title>Gestion urgences</title>
+</head>
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #a9f1df;">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="/dds/gestMed">Médecins</a></li>
+                <li class="nav-item"><a class="nav-link" href="/dds/gestInf">Infirmiers</a></li>
+                <li class="nav-item"><a class="nav-link active" href="/dds/gestUrg">Urgences</a></li>
+                <li class="nav-item"><a class="nav-link" href="/dds/gestLabAnalyse">Labos d'analyse </a></li>
+                <li class="nav-item"><a class="nav-link" href="/dds/gestLabImg">Centres d'imagerie</a></li>
+                <li class="nav-item"><a class="nav-link" href="/dds/gestPha">Pharmaciens</a></li>
+            </ul>
+            <form class="d-flex">
+                <ul class="navbar-nav me-3">
+                    <% if(reqs.length>0) { %>
+                    <li class="nav-item me-4"><a class="nav-link" href="/dds" style="background-color: rgb(187, 26, 26);border-radius: 17px;">Demandes <%=reqs.length %></a></li>
+                    <% }else{ %>
+                    <li class="nav-item me-4"><a class="nav-link" href="/dds" style="background-color: rgb(14, 177, 177);border-radius: 17px;">Demandes <%=reqs.length %></a></li>
+                    <% } %>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active me-2" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">Mon profil &nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                              </svg></a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/dds/myProfile" style="text-align: center;">Paramètres</a></li>
+                            <li><a class="dropdown-item" href="/logout" style="text-align: center;">Se déconnecter</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<body style="padding-top: 60px;">
+    <div class="container">
+        <% if(suM.length>0){ %>
+            <div class="alert alert-success d-flex align-items-center" role="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+  <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+  <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+</svg>
+                <div>
+                    &nbsp;<%=suM%>
+                </div>
+              </div>
+        <%}%>
+        <% if(erM.length>0){ %>
+            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                  </svg>
+            <div>
+                &nbsp;<%=erM%>
+            </div>
+            </div>
+        <%}%>
+        <!-- addUrgModal -->
+        <div class="modal fade" id="addUrgModal" tabindex="-1" aria-labelledby="addUrgModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addUrgModalLabel">Ajouter un urgence</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/dds/gestUrg/addUrg" method="POST">
+                        <div class="modal-body">
+                            <div class="container">
+                            <div class="row mb-2">
+                                <div class="col-lg-2 d-flex align-items-center">
+                                    <label for="wilayaId" class="form-label">wilaya</label>
+                                </div>
+                                <div class="col-lg-10">
+                                    <select class="form-select" name="wilayaId">
+                                        <% for(let i=0;i<wilayas.length;i++){ %>
+                                            <% if(i==11){ %>
+                                                <option value="<%=wilayas[i].wilaya_code %>" selected>
+                                                    <%=wilayas[i].wilayaFrName %>
+                                                </option>
+                                                <% }else{ %>
+                                                    <option value="<%=wilayas[i].wilaya_code %>">
+                                                        <%=wilayas[i].wilayaFrName %>
+                                                    </option>
+                                                    <% } %>
+                                                        <% } %>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <input type="text" class="form-control" name="matricule" placeholder="matricule" id="matricule">
+                            </div>
+                            <div class="row mb-2">
+                                <input type="text" class="form-control" name="nom" placeholder="nom" id="nom">
+                            </div>
+                            <div class="row mb-2">
+                                <input type="text" class="form-control" name="prenom" placeholder="prenom" id="prenom">
+                            </div>
+                            <div class="row mb-2">
+                                <input type="tel" class="form-control" name="numTelephone" placeholder="numTelephone" id="numTelephone">
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-lg-4 d-flex align-items-center">
+                                    <label for="dateDeNaissance" class="form-label">Date de naissance</label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <input type="date" class="form-control" name="dateDeNaissance" id="dateDeNaissance">
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                            <button type="submit" class="btn btn-primary">Ajouter</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <form style="width: 600px; margin: 0 auto;">
+                <div class="row">
+                    <div class="col-lg d-flex justify-content-center">
+                        <a class="btn btn-success tooltip-test" title="Ajouter un urgence" style="width: 40px; height: 40px;" href="#" data-bs-toggle="modal" data-bs-target="#addUrgModal"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+                            <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                            <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                          </svg></a>
+                  </div>
+                    <div class="col-lg-3" style="padding-top: 1px;">
+                        <input type="text" name="nom" class="form-control" placeholder="Nom"></input>
+                    </div>
+                    <div class="col-lg-3" style="padding-top: 1px;">
+                        <input type="text" name="prenom" class="form-control" placeholder="Prénom"></input>
+                    </div>
+                    <div class="col-lg-3" style="padding-top: 1px;">
+                        <input type="text" name="matricule" class="form-control" placeholder="Matricule"></input>
+                    </div>
+                    <div class="col-lg d-flex justify-content-center">
+                          <button formaction="/dds/gestUrg/getUrg/" formmethod="GET" class="btn btn-primary tooltip-test" title="Cherche avec nom, prenom, matricule" style="width: 40px; height: 40px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                          </svg></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row" >
+            <% if(rows.length==0){ %>
+                <div class="alert alert-warning d-flex align-items-center m-1" role="alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                      </svg>&nbsp; Aucune information
+                </div>
+            <% } %>
+            <% for(let i = 0; i < rows.length ; i++) {%>
+                <div class="col-lg-4 d-flex justify-content-center">
+                    <div class="card" style="width: 18rem; margin-top: 20px; height: 20rem;">
+                        <div class="card-header text-center">Matricule : <%= rows[i].matricule%></div>
+                        <div class="card-body">
+                          <h5 class="card-title text-center"><%= rows[i].nom +' ' +rows[i].prenom %></h5>
+                          <p class="card-text">
+                            <ul>
+                                <li>Date de naissance : <%if(rows[i].dateDeNaissance.getDate()<10){%>0<%=rows[i].dateDeNaissance.getDate()%><%}else{%><%=rows[i].dateDeNaissance.getDate()%><% } %>-<%if(rows[i].dateDeNaissance.getMonth()+1<10){%>0<%=rows[i].dateDeNaissance.getMonth()+1%><%}else{%><%=rows[i].dateDeNaissance.getMonth()+1%><% } %>-<%=rows[i].dateDeNaissance.getFullYear()%></li>
+                                <li>État : <%=rows[i].etat %></li>
+                                <li>Spécialité : <%=rows[i].speciality %></li>
+                                <li>Numéro de téléphone : <%=rows[i].numTelephone %></li>
+                              </ul>
+                          </p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/dds/gestUrg/profileUrg/<%=rows[i].matricule%>" class="btn btn-outline-primary d-flex justify-content-center">Profil</a>
+                        </div>
+                      </div>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

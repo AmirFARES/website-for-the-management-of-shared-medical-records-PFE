@@ -1,0 +1,134 @@
+<style>
+    #allMedfields div{
+        margin-top: 10px;
+    }
+</style>
+
+<!-- action="/medecin/patient/<%=idMalade%>/utilitaire/createCon/analyses" method="get" -->
+<div class="card-body">
+    <p class="card-text">
+    <form>
+        <div class="row">
+            <textarea class="form-control" id="consultCom" name="consultCom" rows="1" placeholder="Commentatire de consultation"></textarea>
+        </div>
+        <div class="row mt-1">
+            <div class="card text-center">
+              <div class="card-body">
+                <h5 class="card-title">Ordonnance <button onclick="addTraitField(t)" class="btn btn-primary tooltip-test" title="Ajouter un médicament" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                  </svg></button></h5>
+                <div class="row" id="allTraitFields"></div>
+              </div>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="card text-center">
+              <div class="card-body">
+                <h5 class="card-title">Analyses <button onclick="addAnalyseField(a)" class="btn btn-primary tooltip-test" title="Ajouter une demande d'analyse" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                  </svg></button></h5>
+                <div class="row" id="allAnalyseFields"></div>
+              </div>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="card text-center">
+              <div class="card-body">
+                <h5 class="card-title">Radiographie <button onclick="addRadioField(a)" class="btn btn-primary tooltip-test" title="Ajouter une demande de radiographie" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                  </svg></button></h5>
+                <div class="row" id="allRadioFields"></div>
+              </div>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col">
+                <button formaction="/medecin/patient/<%=idMalade%>/utilitaire/createCon" formmethod="POST" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+    </form>
+    </p>
+</div>
+
+<script>
+    let t=0;
+    let a=0;
+    let r=0;
+    function addTraitField() {
+        t++;
+        let traitField=document.createElement('div');
+        traitField.setAttribute('id',`traitField${t}`);
+        traitField.setAttribute('class',`row mt-1`);
+        traitField.innerHTML=`<div class="col-lg-2"><input type="text" name="tRaison" class="form-control" placeholder="Raison"></div>
+                        <div class="col-lg-3"><input type="text" name="tMedicament" class="form-control" placeholder="Médicament"></div>
+                        <div class="col-lg-2"><input type="text" name="tDosage" class="form-control" placeholder="Dosage"></div>
+                        <div class="col-lg"><input type="text" name="tCaution" class="form-control" placeholder="Caution"></div>`;
+        let deleteBtn=document.createElement('div');
+        deleteBtn.setAttribute('style','width:40px;height:40px');
+        deleteBtn.innerHTML=`<button class="btn btn-danger me-0" type="button" onclick="deleteTraitField(${t})"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+</svg></button>`;
+        document.getElementById("allTraitFields").appendChild(traitField);
+        document.getElementById(`traitField${t}`).appendChild(deleteBtn);
+  }
+  function deleteTraitField(t){
+    document.getElementById(`traitField${t}`).remove();
+  }
+
+  function addAnalyseField() {
+        a++;
+        let analyseField=document.createElement('div');
+        analyseField.setAttribute('id',`analyseField${a}`);
+        analyseField.setAttribute('class',`row mt-1`);
+        analyseField.innerHTML=`<div class="col-lg"><input type="text" name="analyseCom[]" class="form-control" placeholder="Commentatire"></div>
+                        <div class="col-lg-3">
+                            <select class="form-select" name="LabAnalyse[]">
+                                <% for(let i=0;i<labos.length;i++){ %>
+                                    <option value="<%=labos[i].matricule%>"><%=labos[i].nom%> <%=labos[i].prenom%></option>
+                                <% } %>
+                            </select>
+                        </div>`;
+        let deleteBtn=document.createElement('div');
+        deleteBtn.setAttribute('style','width:40px;height:40px');
+        deleteBtn.innerHTML=`<button class="btn btn-danger me-0" type="button" onclick="deleteAnalyseField(${a})"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+</svg></button>`;
+        document.getElementById("allAnalyseFields").appendChild(analyseField);
+        document.getElementById(`analyseField${a}`).appendChild(deleteBtn);
+  }
+  function deleteAnalyseField(a){
+    document.getElementById(`analyseField${a}`).remove();
+  }
+
+  function addRadioField() {
+        r++;
+        let radioField=document.createElement('div');
+        radioField.setAttribute('id',`radioField${r}`);
+        radioField.setAttribute('class',`row mt-1`);
+        radioField.innerHTML=`<div class="col-lg"><input type="text" name="radioCom[]" class="form-control" placeholder="Commentatire"></div>
+                        <div class="col-lg-3">
+                            <select class="form-select" name="Centre[]">
+                                <% for(let i=0;i<centres.length;i++){ %>
+                                    <option value="<%=centres[i].matricule%>"><%=centres[i].nom%> <%=centres[i].prenom%></option>
+                                <% } %>
+                            </select>
+                        </div>`;
+        let deleteBtn=document.createElement('div');
+        deleteBtn.setAttribute('style','width:40px;height:40px');
+        deleteBtn.innerHTML=`<button class="btn btn-danger me-0" type="button" onclick="deleteRadioField(${r})"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+</svg></button>`;
+        document.getElementById("allRadioFields").appendChild(radioField);
+        document.getElementById(`radioField${r}`).appendChild(deleteBtn);
+  }
+  function deleteRadioField(r){
+    document.getElementById(`radioField${r}`).remove();
+  }
+    
+</script>

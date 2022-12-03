@@ -1,0 +1,207 @@
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  
+  <div style="text-align: left; margin-left: 15px; margin-bottom: 5px;">
+    <a href="/medecin/patient/<%=idMalade%>/utilitaire"><i class="fas fa-arrow-left" style="font-size: 30px; color: #0d6efd; "></i></a>
+  </div>
+  
+  <div class="card-body">
+      <p class="card-text">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="card text-center">
+                <div class="card-body">
+                  <h5 class="card-title">Commentaire</h5>
+                  <p class="card-text"><%=consultation[0].Commentaire%></p>
+                </div>
+                <div class="card-footer text-muted">
+                  créé le <%= consultation[0].dateDeConsult.getDate()%>/<%=consultation[0].dateDeConsult.getMonth()+1%>/<%=consultation[0].dateDeConsult.getFullYear() %> à partir de <%=consultation[0].nom%> <%=consultation[0].prenom%> 
+                </div>
+              </div>
+            </div>
+
+            <% if(traitement.length==0){ %>
+              <div class="alert alert-primary d-flex align-items-center mt-2" role="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                  <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </svg>
+                <div>
+                  &nbsp; Il n'y a pas d'ordonnance avec cette consultation
+                </div>
+              </div>
+            <% }else{ %>
+            <div class="row">
+              <div class="card text-center">
+                <div class="card-body">
+                  <h5 class="card-title" style="text-decoration: underline;">Ordonnance</h5>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Nom de médicament</th>
+                        <th scope="col">Dosage</th>
+                        <th scope="col">Raison de traitement</th>
+                        <th scope="col">Précautions et utilisation</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% for(let i = 0; i < traitement.length ; i++) {%>
+                            <tr>
+                                <td><%= traitement[i].nomDeMedicament%></td>
+                                <td><%= traitement[i].dosage%></td>
+                                <td><%= traitement[i].raisonDeTraitement%></td>
+                                <td><%= traitement[i].cautionAndUsage%></td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+                </div>
+              </div>
+            </div>
+            <% } %>
+
+            <% if(analyses.length==0){ %>
+              <div class="alert alert-primary d-flex align-items-center mt-2" role="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                  <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </svg>
+                <div>
+                  &nbsp; Il n'y a pas d'analyses avec cette consultation
+                </div>
+              </div>
+            <% }else{ %>
+            <div class="row">
+              <div class="card text-center">
+                <div class="card-body">
+                  <h5 class="card-title" style="text-decoration: underline;">Analyses</h5>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Labo responsable</th>
+                        <th scope="col">Commentaire</th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% for(let i = 0; i < analyses.length ; i++) {%>
+                            <tr>
+                                <td><%= analyses[i].nom%> <%= analyses[i].prenom%></td>
+                                <td><% if(analyses[i].commentaire.length<90){ %><%= analyses[i].commentaire%><% }else{ %><%= analyses[i].commentaire.substring(0,90)%> ...<% } %></td>
+                                <td><a class="btn btn-info" style="width: 40px; height: 40px;" href="#" data-bs-toggle="modal" data-bs-target="#analyse<%=analyses[i].idAnalyse%>Modal"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-data" viewBox="0 0 16 16">
+                                    <path d="M4 11a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1zm6-4a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7zM7 9a1 1 0 0 1 2 0v3a1 1 0 1 1-2 0V9z"/>
+                                    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                                    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                                  </svg></a></td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <% } %>
+
+            <% if(radio.length==0){ %>
+              <div class="alert alert-primary d-flex align-items-center mt-2" role="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                  <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </svg>
+                <div>
+                  &nbsp; Il n'y a pas des radiographies avec cette consultation
+                </div>
+              </div>
+            <% }else{ %>
+            <div class="row">
+              <div class="card text-center">
+                <div class="card-body">
+                  <h5 class="card-title" style="text-decoration: underline;">Radiographies</h5>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Centre responsable</th>
+                        <th scope="col">Commentaire</th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% for(let i = 0; i < radio.length ; i++) {%>
+                            <tr>
+                                <td><%= radio[i].nom%> <%= radio[i].prenom%></td>
+                                <td><% if(radio[i].commentaire.length<90){ %><%= radio[i].commentaire%><% }else{ %><%= radio[i].commentaire.substring(0,90)%> ...<% } %></td>
+                                <td><a class="btn btn-info" style="width: 40px; height: 40px;" href="#" data-bs-toggle="modal" data-bs-target="#radio<%=radio[i].idRadio%>Modal"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-data" viewBox="0 0 16 16">
+                                    <path d="M4 11a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1zm6-4a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7zM7 9a1 1 0 0 1 2 0v3a1 1 0 1 1-2 0V9z"/>
+                                    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                                    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                                  </svg></a></td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <% } %>
+          </div>
+      </p>
+  </div>
+  <% for(let i = 0; i < analyses.length ; i++) {%>
+    <!-- analyse<%=analyses[i].idAnalyse%>Modal -->
+    <div class="modal fade" id="analyse<%=analyses[i].idAnalyse%>Modal" tabindex="-1" aria-labelledby="analyse<%=analyses[i].idAnalyse%>ModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="analyse<%=analyses[i].idAnalyse%>ModalLabel">Analyse <%=analyses[i].idAnalyse%></h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+                  <div class="modal-body container">
+                      <div class="row">
+                        <div class="col m-2">
+                          <u>Commentaire</u><br> <%=analyses[i].commentaire%>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col m-2">
+                            <u>Résultat</u><br> <%=analyses[i].resultat%>
+                        </div>
+                      </div>     
+                  </div>
+                  <div class="modal-footer">
+                        <div class="col-lg d-flex justify-content-start">
+                            <div class="text-muted">Labo responsable : <%= analyses[i].nom%> <%= analyses[i].prenom%></div>
+                      </div>
+                  </div>
+          </div>
+      </div>
+    </div>
+<% } %>
+<% for(let i = 0; i < radio.length ; i++) {%>
+  <!-- radio<%=radio[i].idRadio%>Modal -->
+  <div class="modal fade" id="radio<%=radio[i].idRadio%>Modal" tabindex="-1" aria-labelledby="radio<%=radio[i].idRadio%>ModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="radio<%=radio[i].idRadio%>ModalLabel">Radio <%=radio[i].idRadio%></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+                <div class="modal-body container">
+                    <div class="row">
+                      <div class="col m-2">
+                        <u>Commentaire</u><br> <%=radio[i].commentaire%>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col m-2 text-center">
+                          <u>Résultat</u><br>
+                          <img src="<%=radio[i].radioFile%>" class="img-fluid rounded mx-auto d-block" style="width: 90%;height: auto;" alt="<%=radio[i].radioFile%>">
+                      </div>
+                    </div>     
+                </div>
+                <div class="modal-footer">
+                      <div class="col-lg d-flex justify-content-start">
+                          <div class="text-muted">Centre responsable : <%=radio[i].nom%> <%=radio[i].prenom%></div>
+                    </div>
+                </div>
+        </div>
+    </div>
+  </div>
+<% } %>

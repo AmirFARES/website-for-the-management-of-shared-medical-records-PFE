@@ -1,0 +1,32 @@
+<% if(consultation==null){ %>
+  <div class="alert alert-warning d-flex align-items-center" role="alert">
+    <div>
+      Il n'y a pas de consultation pour ce patient
+    </div>
+  </div>
+<% }else{ %>
+  <div class="card-body">
+    <p class="card-text">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th>Médecin</th>
+              <th scope="col">Commentaire</th>
+              <th class="col">#</th>
+            </tr>
+          </thead>
+          <tbody>
+              <% for(let i = 0; i < consultation.length ; i++) {%>
+              <tr>
+                  <td><%= consultation[i].dateDeConsult.getDate()%>/<%=consultation[i].dateDeConsult.getMonth()+1%>/<%=consultation[i].dateDeConsult.getFullYear() %></td>
+                  <td><%=consultation[i].nom%><%=consultation[i].prenom%> </td>
+                  <td><% if(consultation[i].Commentaire.length<60){ %><%= consultation[i].Commentaire%><% }else{ %><%= consultation[i].Commentaire.substring(0,60)%> ...<% } %></td>
+                  <td><a href="/medecin/patient/<%=idMalade%>/consultation/<%=consultation[i].idConsultation%>">Détaillée</a></td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+    </p>
+  </div>
+<% } %>

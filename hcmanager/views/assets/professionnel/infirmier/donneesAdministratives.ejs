@@ -1,0 +1,47 @@
+
+<div class="card-body">
+  <p class="card-text">
+    
+    <div class="container">
+      <div class="col-lg">
+          <strong>Nom :</strong>
+            <%=malade[0].nom %>
+          <br>
+          <strong>Prénom :</strong>
+            <%=malade[0].prenom %>
+          <br>
+          <strong>Date de naissance :</strong>
+          <%if(malade[0].dateDeNaissance.getDate()<10){%>0<%=malade[0].dateDeNaissance.getDate()%><%}else{%><%=malade[0].dateDeNaissance.getDate()%><% } %>-<%if(malade[0].dateDeNaissance.getMonth()+1<10){%>0<%=malade[0].dateDeNaissance.getMonth()+1%><%}else{%><%=malade[0].dateDeNaissance.getMonth()+1%><% } %>-<%=malade[0].dateDeNaissance.getFullYear()%>
+          <br>
+          <strong>Adresse du naissance :</strong>
+            <%=malade[0].wilayaDeNais %> <%=malade[0].dairaDeNais %> <%=malade[0].communeDeNais %>
+          <br>
+          <strong>L'adresse du domicile du patient:</strong>
+            <%=malade[0].wilayaDom %> <%=malade[0].dairaDom %> <%=malade[0].communeDom %> <%=malade[0].quartieDom %>
+          <br>
+          <strong>Sexe :</strong>
+            <%=malade[0].sexe %>
+          <br>
+          <%if(malade[0].emailMalade!=null){%>
+            <strong>Email de malade :</strong>
+            <%=malade[0].emailMalade %>
+            <br>
+          <%}%>
+          <%if(malade[0].phoneNum!=null){%>
+            <strong>Le(s) numero(s) de telephone :</strong>
+            <br>
+            <%for(let i=0;i<malade.length;i++){%>
+              <%=malade[i].phoneNum %>
+              <br>
+            <%}%>
+          <%}%>
+      </div>
+  </div>
+  </p>
+</div>
+<div class="card-footer text-muted">
+  <strong>Le dossier créé le </strong>
+  <%if(malade[0].dateCreationDossier.getDate()<10){%>0<%=malade[0].dateCreationDossier.getDate()%><%}else{%><%=malade[0].dateCreationDossier.getDate()%><% } %>-<%if(malade[0].dateCreationDossier.getMonth()+1<10){%>0<%=malade[0].dateCreationDossier.getMonth()+1%><%}else{%><%=malade[0].dateCreationDossier.getMonth()+1%><% } %>-<%=malade[0].dateCreationDossier.getFullYear()%>
+  <strong> à partir de </strong> <%=malade[0].nomUrg %> <%=malade[0].prenomUrg %>
+<br>
+</div>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/logo/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/logo/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/logo/favicon-16x16.png">
+        <link rel="manifest" href="/images/logo/site.webmanifest">
+    <title>Centre d'imagerie</title>
+</head>
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #a9f1df;">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link active" href="/centreImg/oldRadios">Radios récentes</a></li>
+            </ul>
+            
+            <form class="d-flex">
+                <ul class="navbar-nav me-3">
+                    <% if(reqs.length>0) { %>
+                    <li class="nav-item me-4"><a class="nav-link" href="/centreImg" style="background-color: rgb(187, 26, 26);border-radius: 17px;">Demandes <%=reqs.length %></a></li>
+                    <% }else{ %>
+                    <li class="nav-item me-4"><a class="nav-link" href="/centreImg" style="background-color: rgb(14, 177, 177);border-radius: 17px;">Demandes <%=reqs.length %></a></li>
+                    <% } %>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active me-2" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">Mon profil &nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                              </svg></a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/centreImg/myProfile" style="text-align: center;">Paramètres</a></li>
+                            <li><a class="dropdown-item" href="/logout" style="text-align: center;">Se déconnecter</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<body style="padding-top: 60px;">
+    <div class="container-fluid">
+        <div class="table-responsive">
+        <table class="table table-secondary">
+            <thead>
+              <tr>
+                <th scope="col">Radio ID</th>
+                <th scope="col">Consultation ID</th>
+                <th scope="col">Commentaire</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+                <% for(let i = 0; i < oldReqs.length ; i++) {%>
+                    <tr>
+                        <td><%= oldReqs[i].idRadio%></td>
+                        <td><%= oldReqs[i].idConsultation%></td>
+                        <td><% if(oldReqs[i].commentaire.length<90){ %><%= oldReqs[i].commentaire%><% }else{ %><%= oldReqs[i].commentaire.substring(0,90)%> ...<% } %></td>
+                        <td><a class="btn btn-info" style="width: 40px; height: 40px;" href="#" data-bs-toggle="modal" data-bs-target="#oldReqs<%=oldReqs[i].idRadio%>Modal"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-data" viewBox="0 0 16 16">
+                            <path d="M4 11a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1zm6-4a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7zM7 9a1 1 0 0 1 2 0v3a1 1 0 1 1-2 0V9z"/>
+                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                          </svg></a></td>
+                    </tr>
+                <% } %>
+            </tbody>
+          </table></div>
+    </div>
+    <% for(let i = 0; i < oldReqs.length ; i++) {%>
+        <!-- oldReqs<%=oldReqs[i].idRadio%>Modal -->
+        <div class="modal fade" id="oldReqs<%=oldReqs[i].idRadio%>Modal" tabindex="-1" aria-labelledby="oldReqs<%=oldReqs[i].idRadio%>ModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="oldReqs<%=oldReqs[i].idRadio%>ModalLabel">Radio <%=oldReqs[i].idRadio%></h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                      <div class="modal-body container">
+                          <div class="row">
+                            <div class="col m-2">
+                              <u>Commentaire</u><br> <%=oldReqs[i].commentaire%>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col m-2 text-center">
+                                <u>Résultat</u><br>
+                                <img src="<%=oldReqs[i].radioFile%>" class="img-fluid rounded mx-auto d-block" style="width: 90%;height: auto;" alt="<%=oldReqs[i].radioFile%>">
+                            </div>
+                          </div>     
+                      </div>
+                      <div class="modal-footer">
+                            <div class="col-lg d-flex justify-content-start">
+                                <div class="text-muted">Consultation <%=oldReqs[i].idConsultation%></div>
+                          </div>
+                      </div>
+              </div>
+          </div>
+        </div>
+        <% } %>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

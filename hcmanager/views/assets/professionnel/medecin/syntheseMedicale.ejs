@@ -1,0 +1,97 @@
+<div class="card-body">
+  <p class="card-text">
+    <div class="container">
+      <% if(synt.length==0){ %>
+        <div class="alert alert-warning d-flex align-items-center" role="alert">
+          <div>
+            Il n'y a pas de synthèse pour ce patient
+          </div>
+        </div>
+      <% }else{ %>
+      <div class="col-lg">
+        <div class="table-responsive">
+          <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Date de synthèse</th>
+                  <th scope="col">Responsable de la synthèse</th>
+                  <th scope="col">Voir la synthèse</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <% for(let i = 0; i < synt.length ; i++) {%>
+                      <tr>
+                          <td><%if(synt[i].dateDeSynthese.getDate()<10){%>0<%=synt[i].dateDeSynthese.getDate()%><%}else{%><%=synt[i].dateDeSynthese.getDate()%><% } %>-<%if(synt[i].dateDeSynthese.getMonth()+1<10){%>0<%=synt[i].dateDeSynthese.getMonth()+1%><%}else{%><%=synt[i].dateDeSynthese.getMonth()+1%><% } %>-<%=synt[i].dateDeSynthese.getFullYear()%></td>
+                          <td><%= synt[i].nomInf%> <%= synt[i].prenomInf%></td>
+                          <td><a class="btn btn-primary" style="width: 40px; height: 40px;" href="#" data-bs-toggle="modal" data-bs-target="#synt<%=synt[i].idSynthese%>Modal"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-list" viewBox="0 0 16 16">
+                            <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                            <path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zM4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/>
+                          </svg></a></td>
+                      </tr>
+                  <% } %>
+              </tbody>
+            </table></div>
+            
+      </div>
+      <% } %>
+  </div>
+  </p>
+  <% for(let i = 0; i < synt.length ; i++) {%>
+    <!-- synt<%=synt[i].idSynthese%>Modal -->
+    <div class="modal fade" id="synt<%=synt[i].idSynthese%>Modal" tabindex="-1" aria-labelledby="synt<%=synt[i].idSynthese%>ModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="synt<%=synt[i].idSynthese%>ModalLabel">Synthèse médicale</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+                  <div class="modal-body container">
+                    <div class="row">
+                      <div class="col"><u>Poids</u> <%=synt[i].weight%> KG</div>
+                      <div class="col"><u>Taille</u> <%=synt[i].height%> M</div>
+                    </div>
+                      <div class="row">
+                        <div class="col border border-dark m-2">
+                          <u>Allergies</u><br> <%=synt[i].alergies%>
+                        </div>
+                        <div class="col border border-dark m-2">
+                          <u>Liste des problèmes</u><br> <%=synt[i].listeDesProblems%>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col border border-dark m-2">
+                          <u>Liste de interventions chirugicales</u><br> <%=synt[i].listedDeInterventionsChirugicales%>
+                        </div>
+                        <div class="col border border-dark m-2">
+                          <u>Histodrique de la prise médicamenteuse</u><br> <%=synt[i].histodriqueDeLaPriseMedicamenteuse%>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col border border-dark m-2">
+                          <u>Implants</u><br> <%=synt[i].implants%>
+                        </div>
+                        <div class="col border border-dark m-2">
+                          <u>Vaccinations</u><br> <%=synt[i].vaccinations%>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col border border-dark m-2">
+                          <u>Résumé des examens pratiques</u><br> <%=synt[i].resumeDesExamensPratiques%>
+                        </div>
+                        <div class="col border border-dark m-2">
+                          <u>Historique social</u><br> <%=synt[i].historiqueSocial%>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                      <div class="text-muted" style="margin: auto;">cette synthèse creér le <%if(synt[i].dateDeSynthese.getDate()<10){%>0<%=synt[i].dateDeSynthese.getDate()%><%}else{%><%=synt[i].dateDeSynthese.getDate()%><% } %>-<%if(synt[i].dateDeSynthese.getMonth()+1<10){%>0<%=synt[i].dateDeSynthese.getMonth()+1%><%}else{%><%=synt[i].dateDeSynthese.getMonth()+1%><% } %>-<%=synt[i].dateDeSynthese.getFullYear()%> à partir de <%=synt[i].nomInf%> <%=synt[i].prenomInf%></div>
+                  </div>
+          </div>
+      </div>
+    </div>
+    <% } %>
+</div>
+<div class="card-footer text-muted">
+
+</div>

@@ -1,0 +1,23 @@
+******* Ordre des instruction obligatoire
+
+1- Télécharger et installer "node js"
+2- exécuter le sql fichier "db.sql"
+
+__________________________________________
+pour les tests, nous insérons des données
+3- exécuter le sql fichier "test.sql"
+__________________________________________
+
+4- ouvrez cmd dans hcmanager et écrivez "node app.js"
+5- allez dans le navigateur et lancez le lien "localhost:3000"
+
+______________________________________________
+pour les tests ilya:
+
+compte dds  			=>  dds12@gmail.com:1111
+compte Medecin  		=>  M1@gmail.com:1111
+compte Infirmier		=>  INF1@gmail.com:1111
+compte Urgence  		=>  U1@gmail.com:1111
+compte Labo d'analyse		=>  LAB1@gmail.com:1111
+compte Centre d'imagerie	=>  CENT1@gmail.com:1111
+compte Parmacien		=>  PHA1@gmail.com:1111

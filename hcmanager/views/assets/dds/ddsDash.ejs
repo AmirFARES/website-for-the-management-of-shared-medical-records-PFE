@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/logo/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/logo/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/logo/favicon-16x16.png">
+        <link rel="manifest" href="/images/logo/site.webmanifest">
+    <title>DDS</title>
+</head>
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #a9f1df;">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="/dds/gestMed">Médecins</a></li>
+                <li class="nav-item"><a class="nav-link" href="/dds/gestInf">Infirmiers</a></li>
+                <li class="nav-item"><a class="nav-link" href="/dds/gestUrg">Urgences</a></li>
+                <li class="nav-item"><a class="nav-link" href="/dds/gestLabAnalyse">Labos d'analyse </a></li>
+                <li class="nav-item"><a class="nav-link" href="/dds/gestLabImg">Centres d'imagerie</a></li>
+                <li class="nav-item"><a class="nav-link" href="/dds/gestPha">Pharmaciens</a></li>
+            </ul>
+            
+            <form class="d-flex">
+                <ul class="navbar-nav me-3">
+                    <% if(reqs.length>0) { %>
+                    <li class="nav-item me-4"><a class="nav-link active" href="/dds" style="background-color: rgb(187, 26, 26);border-radius: 17px;">Demandes <%=reqs.length %></a></li>
+                    <% }else{ %>
+                    <li class="nav-item me-4"><a class="nav-link active" href="/dds" style="background-color: rgb(14, 177, 177);border-radius: 17px;">Demandes <%=reqs.length %></a></li>
+                    <% } %>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active me-2" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">Mon profil &nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                              </svg></a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/dds/myProfile" style="text-align: center;">Paramètres</a></li>
+                            <li><a class="dropdown-item" href="/logout" style="text-align: center;">Se déconnecter</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<body style="padding-top: 60px;">
+    <div class="container-fluid">
+        <% if(suM.length>0){ %>
+            <div class="alert alert-success d-flex align-items-center" role="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+  <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+  <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+</svg>
+                <div>
+                    &nbsp;<%=suM%>
+                </div>
+              </div>
+        <%}%>
+        <% if(erM.length>0){ %>
+            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                  </svg>
+            <div>
+                &nbsp;<%=erM%>
+            </div>
+            </div>
+        <%}%>
+        <div class="table-responsive">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Date de demande</th>
+                <th scope="col">Matricule</th>
+                <th scope="col">Numéro de téléphone</th>
+                <th scope="col">Email</th>
+                <th scope="col">Vérifier</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% for(let i = 0; i < reqs.length ; i++) {%>
+                    <tr>
+                        <td><%if(reqs[i].dateDeDemande.getDate()<10){%>0<%=reqs[i].dateDeDemande.getDate()%><%}else{%><%=reqs[i].dateDeDemande.getDate()%><% } %>-<%if(reqs[i].dateDeDemande.getMonth()+1<10){%>0<%=reqs[i].dateDeDemande.getMonth()+1%><%}else{%><%=reqs[i].dateDeDemande.getMonth()+1%><% } %>-<%=reqs[i].dateDeDemande.getFullYear()%></td>
+                        <td><%= reqs[i].matricule%></td>
+                        <td><%= reqs[i].numTelephone%></td>
+                        <td><%= reqs[i].email%></td>
+                        <td><a href="/dds/checkDemande/<%=reqs[i].matricule%>" class="btn btn-outline-info"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                            <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                          </svg></a></td>
+                    </tr>
+                <% } %>
+            </tbody>
+          </table></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
